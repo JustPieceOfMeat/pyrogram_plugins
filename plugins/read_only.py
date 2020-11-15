@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, ChatPermissions
 
 
-@Client.on_message(filters.regex(r'^(ro)|(mute) ((\d+|(\d+\.\d+))[mhdw])+$'))
+@Client.on_message(filters.regex(r'^([Rr][Oo])|([Mm][Uu][Tt][Ee]) ((\d+|(\d+\.\d+))[mhdw])+$'))
 def read_only(client: Client, message: Message):
     mute_seconds: int = 0
     for character in 'mhdw':
@@ -34,12 +34,15 @@ def read_only(client: Client, message: Message):
                 'hours': mute_seconds % 86400 // 3600,
                 'minutes': mute_seconds % 86400 % 3600 // 60
             }
-            message.edit_text(f"<a href=\"tg://user?id={from_user.id}\">"
-                              f"{from_user.first_name} {from_user.last_name if from_user.last_name else ''}</a>"
-                              f" {('(@' + from_user.username + ')') if from_user.username else ''} was muted for"
-                              f" {(str(mute_time['days']) + ' day') if mute_time['days'] > 0 else '' + 's' if mute_time['days'] > 1 else ''}"
-                              f" {(str(mute_time['hours']) + ' hour') if mute_time['hours'] > 0 else '' + 's' if mute_time['hours'] > 1 else ''}"
-                              f" {(str(mute_time['minutes']) + ' minute') if mute_time['minutes'] > 0 else '' + 's' if mute_time['minutes'] > 1 else ''}"
-                              .replace('  ', ''))
+            message_text = f"<a href=\"tg://user?id={from_user.id}\">{from_user.first_name}" \
+                           f"{from_user.last_name if from_user.last_name else ''}</a>" \
+                           f" {('(@' + from_user.username + ')') if from_user.username else ''} was muted for" \
+                           f" {((str(mute_time['days']) + ' day') if mute_time['days'] > 0 else '') + ('s' if mute_time['days'] > 1 else '')}" \
+                           f" {((str(mute_time['hours']) + ' hour') if mute_time['hours'] > 0 else '') + ('s' if mute_time['hours'] > 1 else '')}" \
+                           f" {((str(mute_time['minutes']) + ' minute') if mute_time['minutes'] > 0 else '') + ('s' if mute_time['minutes'] > 1 else '')}"
+            while '  ' in message_text:
+                message_text = message_text.replace('  ', ' ')
+            message.edit_text(message_text)
         except Exception as e:
+            print(e)
             return

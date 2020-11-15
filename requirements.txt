@@ -1,3 +1,6 @@
 #Pyrogram
 pyrogram
 tgcrypto
+#Translate
+googletrans
+pycountry

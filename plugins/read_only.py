@@ -1,26 +1,25 @@
 from typing import Dict
 import re
 from time import time
-from datetime import timedelta
 
 from pyrogram import Client, filters
 from pyrogram.types import Message, ChatPermissions
 
 
-@Client.on_message(filters.regex(r'^(ro)|(mute) ((\d+|(\d+\.\d+))[hdwm])+$'))
+@Client.on_message(filters.regex(r'^(ro)|(mute) ((\d+|(\d+\.\d+))[mhdw])+$'))
 def read_only(client: Client, message: Message):
     mute_seconds: int = 0
-    for character in 'hdwm':
+    for character in 'mhdw':
         match = re.search(rf'(\d+|(\d+\.\d+)){character}', message.text)    # Searching for a terms
         if match:   # calculating seconds if found valid term
+            if character == 'm':
+                mute_seconds += int(float(match.string[match.start():match.end() - 1]) * 60 // 1)
             if character == 'h':
                 mute_seconds += int(float(match.string[match.start():match.end() - 1]) * 3600 // 1)
             if character == 'd':
                 mute_seconds += int(float(match.string[match.start():match.end() - 1]) * 86400 // 1)
             if character == 'w':
                 mute_seconds += int(float(match.string[match.start():match.end() - 1]) * 604800 // 1)
-            if character == 'm':
-                mute_seconds += int(float(match.string[match.start():match.end() - 1]) * 2592000 // 1)
     if mute_seconds > 30:
         try:
             client.restrict_chat_member(

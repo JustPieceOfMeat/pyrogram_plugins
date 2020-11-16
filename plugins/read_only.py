@@ -6,7 +6,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message, ChatPermissions
 
 
-@Client.on_message(filters.regex(r'^([Rr][Oo])|([Mm][Uu][Tt][Ee]) ((\d+|(\d+\.\d+))[mhdw])+$'))
+@Client.on_message(filters.regex(r'^([Rr][Oo])|([Mm][Uu][Tt][Ee]) ((\d+|(\d+\.\d+))[mhdw])+$') & filters.me)
 def read_only(client: Client, message: Message):
     mute_seconds: int = 0
     for character in 'mhdw':
@@ -43,6 +43,5 @@ def read_only(client: Client, message: Message):
             while '  ' in message_text:
                 message_text = message_text.replace('  ', ' ')
             message.edit_text(message_text)
-        except Exception as e:
-            print(e)
+        except Exception:
             return

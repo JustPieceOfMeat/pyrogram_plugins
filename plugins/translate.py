@@ -8,7 +8,7 @@ from googletrans import Translator
 from pycountry import languages
 
 
-@Client.on_message(filters.command(['transl', 'translate', 'trans'], ['.', '!']))
+@Client.on_message(filters.command(['transl', 'translate', 'trans'], ['.', '!']) & filters.me)
 def translate_cmd(client: Client, message: Message):
     def translate_text(text_to_translate: str, dest_lang: str = environ.get('LANGUAGE'), src_lang: str = 'DETECT'):
         translator = Translator()

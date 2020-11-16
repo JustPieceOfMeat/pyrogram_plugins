@@ -5,7 +5,7 @@ from pyrogram.types import Message
 from pyrogram.errors.exceptions.flood_420 import SlowmodeWait
 
 
-@Client.on_message(filters.command(['admin', 'admins'], '@'))
+@Client.on_message(filters.command(['admin', 'admins'], '@') & filters.me)
 def mention_admins(client: Client, message: Message):
     message.delete()
     message_text = message.text

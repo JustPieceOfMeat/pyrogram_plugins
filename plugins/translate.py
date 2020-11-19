@@ -27,7 +27,7 @@ def translate_cmd(client: Client, message: Message):
     words: List[str] = message.text.split(' ')
     if len(words) == 1:
         text = translate_text(message.reply_to_message.text)
-        message.edit_text(text if text != '' else "1Couldn't translate...")
+        message.edit_text(text if text != '' else "Couldn't translate...")
         return
     if ':' in words[1]:
         try:
@@ -36,16 +36,16 @@ def translate_cmd(client: Client, message: Message):
             dest: str = languages.lookup(langs[1]).name
             text = ' '.join(words[2:]) if len(words) > 2 else message.reply_to_message.text
             text = translate_text(text, dest, src)
-            message.edit_text(text if text != '' else "2Couldn't translate...")
+            message.edit_text(text if text != '' else "Couldn't translate...")
         except LookupError:
             message.edit_text("Couldn't find language...")
         except Exception:
-            message.edit_text("3Couldn't translate...")
+            message.edit_text("Couldn't translate...")
         return
     try:
         text = ' '.join(words[2:]) if len(words) > 2 else message.reply_to_message.text
         text = translate_text(text, languages.lookup(words[1]).name)
-        message.edit_text(text if text != '' else "4Couldn't translate...")
+        message.edit_text(text if text != '' else "Couldn't translate...")
     except LookupError:
         text = translate_text(message.text)
-        message.edit_text(text if text != '' else "5Couldn't translate...")
+        message.edit_text(text if text != '' else "Couldn't translate...")

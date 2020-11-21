@@ -1,11 +1,11 @@
-import urllib.request, urllib.parse, urllib.error
-import urllib.request, urllib.error, urllib.parse
+import urllib.error, urllib.parse, urllib.request
 from os import getlogin
+
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-def paste_code(content: str, author: str = getlogin()) -> str:  # from https://www.geany.org/p/help/api/
+def paste_code(content: str, author: str = 'Telegram Userbot') -> str:  # from https://www.geany.org/p/help/api/
     fields = [('content', content), ('author', author), ('lexer', 'json')]
     encoded_data = urllib.parse.urlencode(fields).encode('utf-8')
     request = urllib.request.Request(

@@ -1,5 +1,6 @@
-import urllib.error, urllib.parse, urllib.request
-from os import getlogin
+import urllib.error
+import urllib.parse
+import urllib.request
 
 from pyrogram import Client, filters
 from pyrogram.types import Message

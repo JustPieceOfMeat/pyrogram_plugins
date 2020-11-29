@@ -1,6 +1,8 @@
 #Pyrogram
-pyrogram
+https://github.com/pyrogram/pyrogram/archive/master.zip # Current pyrogram release doens't support document groups, so pixiv plugin doesn't work correctly
 tgcrypto
 #Translate
 googletrans
 pycountry
+#Pixiv
+PixivPy

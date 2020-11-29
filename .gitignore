@@ -132,4 +132,5 @@ dmypy.json
 config.ini
 main.py
 sessions/
-.idea
+.idea/
+.run/

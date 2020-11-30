@@ -49,7 +49,7 @@ def on_pixiv(client: Client, message: Message):
             if 'file' in message.text:
                 if 'documents' not in media:
                     media['documents'] = []
-                if len(media['documents']) == 0:
+                if len(media['documents']) == 0 or 'EACH' in str(message.text) + str(message.caption):
                     media['documents'].append(InputMediaDocument(file_path, caption=caption))
                 else:
                     media['documents'].append(InputMediaDocument(file_path))
@@ -57,28 +57,28 @@ def on_pixiv(client: Client, message: Message):
                 if filenames[urls.index(url)][-3:] in ('png', 'jpg', 'jpeg'):
                     if 'photos' not in media:
                         media['photos'] = []
-                    if len(media['photos']) == 0:
+                    if len(media['photos']) == 0 or 'EACH' in str(message.text) + str(message.caption):
                         media['photos'].append(InputMediaPhoto(file_path, caption=caption))
                     else:
                         media['photos'].append(InputMediaPhoto(file_path))
                 elif filenames[urls.index(url)][-3:] == 'gif':
                     if 'animations' not in media:
                         media['animations'] = []
-                    if len(media['animations']) == 0:
+                    if len(media['animations']) == 0 or 'EACH' in str(message.text) + str(message.caption):
                         media['animations'].append(InputMediaAnimation(file_path, caption=caption))
                     else:
                         media['animations'].append(InputMediaAnimation(file_path))
                 elif filenames[urls.index(url)][-3:] == 'mp4':
                     if 'videos' not in media:
                         media['videos'] = []
-                    if len(media['videos']) == 0:
+                    if len(media['videos']) == 0 or 'EACH' in str(message.text) + str(message.caption):
                         media['videos'].append(InputMediaVideo(file_path, caption=caption))
                     else:
                         media['videos'].append(InputMediaVideo(file_path))
                 else:
                     if 'documents' not in media:
                         media['documents'] = []
-                    if len(media['documents']) == 0:
+                    if len(media['documents']) == 0 or 'EACH' in str(message.text) + str(message.caption):
                         media['documents'].append(InputMediaDocument(file_path, caption=caption))
                     else:
                         media['documents'].append(InputMediaDocument(file_path))

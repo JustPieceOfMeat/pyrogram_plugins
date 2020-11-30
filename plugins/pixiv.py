@@ -24,7 +24,7 @@ def on_pixiv(client: Client, message: Message):
         if not client.get_chat_member(message.chat.id, 'me').can_post_messages:
             return
 
-    m = url_pattern.search(message.text.markdown or message.caption.markdown)   # URL
+    m = url_pattern.search(message.text.html or message.caption.html)   # URL
     caption = m.string[m.end():]    # Caption
     m = re.search(r'\d+', m.string[m.start():m.end()])  # Artwork ID from URL
     artwork_id = int(m.string[m.start():m.end()])

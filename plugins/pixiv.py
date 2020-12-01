@@ -18,7 +18,12 @@ opener.addheaders = [('referer', 'https://www.pixiv.net/')]
 urllib.request.install_opener(opener)
 
 
-@Client.on_message(filters.command('pixiv', list('!.')) & filters.regex(url_pattern) & (filters.me | filters.channel))
+@Client.on_message(
+    filters.command('pixiv', list('!.')) &
+    filters.regex(url_pattern) &
+    (filters.me | filters.channel) &
+    ~filters.scheduled
+)
 def on_pixiv(client: Client, message: Message):
     if message.chat.type == 'channel':
         if not client.get_chat_member(message.chat.id, 'me').can_post_messages:

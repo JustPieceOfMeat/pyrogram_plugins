@@ -33,13 +33,18 @@ def on_pixiv(client: Client, message: Message):
     caption = m.string[m.end():]    # Caption
     m = re.search(r'\d+', m.string[m.start():m.end()])  # Artwork ID from URL
     artwork_id = int(m.string[m.start():m.end()])
-    m = re.search(r'\[((\d+,)+ )?\d+]', caption)    # Indexes
+    m = re.search(r'\[((\d+, )+)?\d+]', caption)    # Indexes
     indexes: Union[List[int], None] = None
     if m is not None:
         indexes = eval(m.string[m.start():m.end()])
         caption = m.string[:m.start()] + m.string[m.end():]
 
     illust = api.illust_detail(artwork_id)
+    if illust.get('error'):
+        api.auth(environ.get('PIXIV_LOGIN'), environ.get('PIXIV_PASSWORD'), api.access_token)
+        print('reauth')
+        illust = api.illust_detail(artwork_id)
+    print(illust)
     caption = caption.replace('$TITLE', illust['illust']['title'])
     message.delete()
     if illust['illust']['meta_pages']:

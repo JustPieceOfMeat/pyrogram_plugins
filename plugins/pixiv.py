@@ -9,7 +9,7 @@ from pixivpy3 import AppPixivAPI
 
 
 api = AppPixivAPI()
-api.login(environ.get('PIXIV_LOGIN'), environ.get('PIXIV_PASSWORD'))
+api.auth(refresh_token=environ.get('PIXIV_TOKEN'))
 url_pattern = re.compile(r'pixiv.net\/..\/artworks\/\d+')
 download_path = environ.get('DOWNLOAD_PATH') or '/tmp'
 
